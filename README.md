@@ -10,8 +10,8 @@ Instalar y uso del script
 Shell
 
     wget https://raw.githubusercontent.com/chucheria/fattest-cat/master/oldest-pet.R
-    chmod +x fattest-cat.R
-    ./fattest-cat.R
+    chmod +x oldest-pet.R
+    ./oldest-pet.R
 
 R
 
