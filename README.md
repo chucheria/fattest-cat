@@ -2,6 +2,8 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 > Los perretes y gatetes se hacen mayores en las protectoras, ¡ayúdemoslos!
 
+Encuentra el gato o perro más mayor en adopción de la [protectora ANAA](http://www.anaaweb.org/)
+
 Un script en [\#rstats](https://twitter.com/hashtag/rstats), en honor al [script de Jenny Bryan](https://github.com/jennybc/fattest-cat) para encontrar los gatos más gordos en el [centro de adopción SF SPCA](https://www.sfspca.org/adoptions/cats)
 
 Instalar y uso del script
