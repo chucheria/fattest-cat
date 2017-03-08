@@ -12,33 +12,29 @@ knitr::opts_chunk$set(
 )
 ```
 
-> Some cats are born fat, some achieve fatness, others have fatness thrust upon them.
+> Los perretes y gatetes se hacen mayores en las protectoras, ¡ayúdemoslos!
 
-An [#rstats](https://twitter.com/hashtag/rstats) tribute script, in honor of the very charming [lexiross/fattest-cat](https://github.com/lexiross/fattest-cat), a script to find the fattest [cat currently up for adoption at SF SPCA](https://www.sfspca.org/adoptions/cats). Why should JavaScript have all the fun?
+Un script en [#rstats](https://twitter.com/hashtag/rstats), en honor al [script de Jenny Bryan](https://github.com/jennybc/fattest-cat) para encontrar los gatos más gordos en el [centro de adopción SF SPCA](https://www.sfspca.org/adoptions/cats)
 
-Incidentally, this makes a pretty good demo of using the [tidyverse](https://blog.rstudio.org/2016/09/15/tidyverse-1-0-0/) to work in a style I call [Data Rectangling](https://speakerdeck.com/jennybc/data-rectangling).
 
-## Install and call
+## Instalar y uso del script
 
-From a shell
+Shell
 
 ```
-wget https://raw.githubusercontent.com/jennybc/fattest-cat/master/fattest-cat.R
+wget https://raw.githubusercontent.com/chucheria/fattest-cat/master/oldest-pet.R
 chmod +x fattest-cat.R
 ./fattest-cat.R
 ```
 
-From R
+R
 
 ```{r eval = FALSE}
-url <- "https://raw.githubusercontent.com/jennybc/fattest-cat/master/fattest-cat.R"
+url <- "https://raw.githubusercontent.com/chucheria/fattest-cat/master/oldest-pet.R"
 rfile <- basename(url)
 download.file(url, rfile)
 source(rfile)
 ```
 
-## Demo
+Elige entre **1** o **2** para buscar *gatos* o *perros*.
 
-```{sh, cache = TRUE}
-./fattest-cat.R
-```
