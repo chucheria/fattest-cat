@@ -11,14 +11,14 @@ Instalar y uso del script
 
 Shell
 
-    wget https://raw.githubusercontent.com/chucheria/fattest-cat/master/oldest-pet.R
+    wget https://raw.githubusercontent.com/chucheria/oldest-pet/master/oldest-pet.R
     chmod +x oldest-pet.R
     ./oldest-pet.R
 
 R
 
 ``` r
-url <- "https://raw.githubusercontent.com/chucheria/fattest-cat/master/oldest-pet.R"
+url <- "https://raw.githubusercontent.com/chucheria/oldest-pet/master/oldest-pet.R"
 rfile <- basename(url)
 download.file(url, rfile)
 source(rfile)

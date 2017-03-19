@@ -24,7 +24,7 @@ Un script en [#rstats](https://twitter.com/hashtag/rstats), en honor al [script 
 Shell
 
 ```
-wget https://raw.githubusercontent.com/chucheria/fattest-cat/master/oldest-pet.R
+wget https://raw.githubusercontent.com/chucheria/oldest-pet/master/oldest-pet.R
 chmod +x oldest-pet.R
 ./oldest-pet.R
 ```
@@ -32,7 +32,7 @@ chmod +x oldest-pet.R
 R
 
 ```{r eval = FALSE}
-url <- "https://raw.githubusercontent.com/chucheria/fattest-cat/master/oldest-pet.R"
+url <- "https://raw.githubusercontent.com/chucheria/oldest-pet/master/oldest-pet.R"
 rfile <- basename(url)
 download.file(url, rfile)
 source(rfile)

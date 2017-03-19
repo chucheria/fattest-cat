@@ -2,3 +2,5 @@ node_modules
 .DS_Store
 .Rproj.user
 README_cache
+.RData
+.Rhistory
