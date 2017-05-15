@@ -78,7 +78,8 @@ pet <- calls %>%
   mutate(born = as.Date(gsub("Edad: ", "", age), '%d-%m-%Y'),
          sex = gsub("Sexo: ", "", sex),
          article = ifelse(sex == "hembra", "La", "El"),
-         age = round(as.numeric(difftime(Sys.Date(), born, units = "weeks"))/52.25, digits=1))
+         age = round(as.numeric(difftime(Sys.Date(), born, units = "weeks"))/52.25, digits=1)) %>%
+  filter(complete.cases(.))
 
 tbl <-
   capture.output(
@@ -90,12 +91,12 @@ tbl <-
   str_c(collapse = "\n")
 message(tbl)
 
-oldest <- min(pet$born)
+oldest <- max(pet$age)
 message(
   str_interp("${article} más mayor es ${name}. Tiene ${age} años.",
-             pet[pet$born == oldest, ])
+             pet[pet$age == oldest, ])
 )
 Sys.sleep(0.5)
 message("Abriendo su perfil...")
 Sys.sleep(0.5)
-browseURL(pet$url[pet$born == oldest])
+browseURL(pet$url[pet$age == oldest])
