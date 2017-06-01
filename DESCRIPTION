@@ -1,0 +1,18 @@
+Package: oldest-pet
+Title: Encuentra el gato/perro más viejo en adopción en la Asociación ANAA y ALBA
+Version: 0.2.0
+Authors@R: person("Bea Hernández", "Hogervorst", role = c("aut"))
+Description: Encuentra a la mascota más mayor entre las asociaciones de ANAA y
+ALBA. Puedes buscar perros o gatos. De esta manera podrás darle un hogar a una
+mascota que te lo agradecerá en toda la corta vida que le queda.
+Depends:
+    R (>= 3.3.1)
+License: Mozilla Public License Version 2.0
+Encoding: UTF-8
+URL: https://github.com/chucheria/oldest-pet
+BugReports: https://github.com/chucheria/oldest-pet/issues
+Imports:
+    tidyverse
+    rvest
+    stringr
+    httr
