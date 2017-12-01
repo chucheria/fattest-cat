@@ -96,7 +96,7 @@ calls_anaa <- calls_helper(ids_anaa, 'ANAA')
 message("Accediendo a ALBA (Departamento de ", choice, "...)")
 calls_alba <- calls_helper_alba(choice) %>% unique()
 message("Leyendo información sobre ", choice, ".\n  ",
-        length(ids_alba), " ", choice, " únicos encontrados.\n ",
+        length(calls_alba), " ", choice, " únicos encontrados.\n ",
         "Calculando su edad...")
 
 
