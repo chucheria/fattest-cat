@@ -37,6 +37,14 @@ Un script en [#rstats](https://twitter.com/hashtag/rstats), en honor al [script 
 
 ## Instalar y uso del script
 
+MacOS Terminal
+
+```
+curl -o oldest-pet.R https://raw.githubusercontent.com/chucheria/oldest-pet/master/oldest-pet.R
+chmod +x oldest-pet.R
+./oldest-pet.R
+```
+
 Shell
 
 ```
