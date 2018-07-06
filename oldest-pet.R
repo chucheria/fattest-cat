@@ -6,7 +6,7 @@ library(httr)
 
 ## URL Base
 ANAA_BASE <- "http://www.anaaweb.org/"
-ALBA_BASE <- 'http://www.albaonline.org/'
+MADRILENA_BASE <- 'http://adopcioneslamadrilena.org/'
 
 
 ## Console helper
@@ -60,25 +60,24 @@ calls_helper <- function(ids, shelter) {
 }
 
 ## WITH COMPLETE LINKS
-calls_helper_alba <- function(pet, page = 0) {
-  message("Leyendo la página de ALBA de " , pet)
+calls_helper_madrilena <- function(page = 1) {
+  message("Leyendo la página de LA MADRILEÑA de " , pet)
   page_query <- if (page < 1) NULL else list(page = page)
-  select_pet <- ifelse(pet == 'gatos', 2, 1)
-  modifier <- paste0(pet, "-en-adopcion/categorias/", select_pet)
-  url <- modify_url(ALBA_BASE, path = modifier,
+  modifier <- paste0("listado.php?p=", page)
+  url <- modify_url(MADRILENA_BASE, path = modifier,
                     query = page_query)
-  ids <- url %>%
+  calls_madrilena <- url %>%
     read_html() %>%
     html_nodes("a") %>%
-    html_attr("href")
-
-  ids <- ids %>%
-    str_subset("/fichas/")
-  ids_fields <- sapply(strsplit(as.character(ids), "/"), tail, 3)
-  ids <- tibble (
-    id = ids_fields[1, ],
-    url = ids
-  )
+    html_attr("href") %>%
+    str_subset("ficha")
+  
+  if (length(calls_madrilena) < 1) {
+    return(calls_madrilena)
+  } else {
+    ## recursive case
+    c(calls_madrilena, calls_helper_madrilena(page + 1))
+  }
 }
 
 #####
@@ -87,16 +86,20 @@ ids_anaa <- fetch_helper_anaa(choice) %>% unique()
 if (choice == 'perros') {
   ids_yayos <- fetch_helper_anaa(pet = 'y-ayos') %>% unique()
 }
-message("Leyendo información sobre ", choice, ".\n  ",
-        length(ids_anaa), " ", choice, " únicos encontrados.\n ",
-        "Calculando su edad...")
 calls_anaa <- calls_helper(ids_anaa, 'ANAA')
-
-
-message("Accediendo a ALBA (Departamento de ", choice, "...)")
-calls_alba <- calls_helper_alba(choice) %>% unique()
 message("Leyendo información sobre ", choice, ".\n  ",
-        length(calls_alba), " ", choice, " únicos encontrados.\n ",
+        nrow(calls_anaa), " ", choice, " únicos encontrados.\n ",
+        "Calculando su edad...")
+
+message("Accediendo a LA MADRILEÑA (Departamento de ", choice, "...)")
+calls_madrilena <- calls_helper_madrilena() %>% unlist() %>% unique()
+ids_fields <- sapply(strsplit(as.character(calls_madrilena), "-"), tail, 1)
+calls_madrilena <- tibble (
+  id = ids_fields,
+  url = calls_madrilena
+)
+message("Leyendo información sobre ", choice, ".\n  ",
+        nrow(calls_madrilena), " animales únicos encontrados.\n ",
         "Calculando su edad...")
 
 
@@ -120,23 +123,25 @@ pet_anaa <- fetch_calls_anaa %>%
   filter(complete.cases(.))
 
 
-fetch_calls_alba <- calls_alba %>%
-  mutate(content = map(url, read_html, encoding = "ISO-8859-1"))
+fetch_calls_madrilena <- calls_madrilena %>%
+  mutate(content = map(url, read_html))
 
 get_field <- compose(str_trim, html_text, html_node)
-pet_alba <- fetch_calls_alba %>%
+pet_madrilena <- fetch_calls_madrilena %>%
   select(url, content, id) %>%
-  mutate(name = map_chr(content, get_field, ".fl h1"),
-         age = map_chr(content, get_field, ".fl p+p+p"),
-         sex = map_chr(content, get_field, ".fl p+p+p+p")) %>%
-  select(name, age, sex, url, id) %>%
-  mutate(born = as.Date(gsub("Nacido: ", "", age), '%d/%m/%Y'),
-         sex = gsub("Sexo: ", "", sex),
-         article = ifelse(sex == "hembra", "La", "El"),
+  mutate(name = map_chr(content, get_field, ".ficha_caracteristicas > .ficha_nombre > span"),
+         type = map_chr(content, get_field, ".ficha_caracteristicas > .ficha_tipo > span"),
+         age = map_chr(content, get_field, ".ficha_caracteristicas > .ficha_edad > span"),
+         sex = map_chr(content, get_field, ".ficha_caracteristicas > .ficha_sexo > span"),
+         born =  map_chr(content, get_field, ".ficha_caracteristicas > .ficha_nacimiento > span")) %>%
+  filter(str_detect(choice, str_to_lower(type))) %>%
+  select(name, age, sex, url, id, born) %>%
+  mutate(article = ifelse(sex == "Hembra", "La", "El"),
+         born = as.Date(paste0('01/',born), '%d/%m/%Y'),
          age = round(as.numeric(difftime(Sys.Date(), born, units = "weeks"))/52.25, digits=1)) %>%
   filter(complete.cases(.))
 
-pet <- bind_rows(pet_alba, pet_anaa)
+pet <- bind_rows(pet_madrilena, pet_anaa)
 
 tbl <-
   capture.output(
