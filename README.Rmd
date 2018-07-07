@@ -37,28 +37,18 @@ Un script en [#rstats](https://twitter.com/hashtag/rstats), en honor al [script 
 
 ## Instalar y uso del script
 
-MacOS Terminal
-
-```
-curl -o oldest-pet.R https://raw.githubusercontent.com/chucheria/oldest-pet/master/oldest-pet.R
-chmod +x oldest-pet.R
-./oldest-pet.R
-```
-
-Shell
-
-```
-wget https://raw.githubusercontent.com/chucheria/oldest-pet/master/oldest-pet.R
-chmod +x oldest-pet.R
-./oldest-pet.R
-```
-
 R
 
 ```{r eval = FALSE}
 url <- "https://raw.githubusercontent.com/chucheria/oldest-pet/master/oldest-pet.R"
+anaa <- "https://raw.githubusercontent.com/chucheria/oldest-pet/master/anaa.R"
+madrilena <- "https://raw.githubusercontent.com/chucheria/oldest-pet/master/madrilena.R"
 rfile <- basename(url)
+afile <- basename(anaa)
+madfile <- basename(madrilena)
 download.file(url, rfile)
+download.file(anaa, afile)
+download.file(madrilena, madfile)
 source(rfile)
 ```
 
