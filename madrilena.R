@@ -37,14 +37,20 @@ fetch_calls_madrilena <- calls_madrilena %>%
 get_field <- compose(str_trim, html_text, html_node)
 pet_madrilena <- fetch_calls_madrilena %>%
   select(url, content, id) %>%
-  mutate(name = map_chr(content, get_field, ".ficha_caracteristicas > .ficha_nombre > span"),
-         type = map_chr(content, get_field, ".ficha_caracteristicas > .ficha_tipo > span"),
-         age = map_chr(content, get_field, ".ficha_caracteristicas > .ficha_edad > span"),
-         sex = map_chr(content, get_field, ".ficha_caracteristicas > .ficha_sexo > span"),
-         born =  map_chr(content, get_field, ".ficha_caracteristicas > .ficha_nacimiento > span")) %>%
+  mutate(name = map_chr(content, get_field, 
+                        ".ficha_caracteristicas > .ficha_nombre > span"),
+         type = map_chr(content, get_field, 
+                        ".ficha_caracteristicas > .ficha_tipo > span"),
+         age = map_chr(content, get_field, 
+                       ".ficha_caracteristicas > .ficha_edad > span"),
+         sex = map_chr(content, get_field, 
+                       ".ficha_caracteristicas > .ficha_sexo > span"),
+         born =  map_chr(content, get_field, 
+                         ".ficha_caracteristicas > .ficha_nacimiento > span")) %>%
   filter(str_detect(choice, str_to_lower(type))) %>%
   select(name, age, sex, url, id, born) %>%
   mutate(article = ifelse(sex == "Hembra", "La", "El"),
          born = as.Date(paste0('01/',born), '%d/%m/%Y'),
-         age = round(as.numeric(difftime(Sys.Date(), born, units = "weeks"))/52.25, digits=1)) %>%
+         age = round(as.numeric(difftime(Sys.Date(), born, 
+                                         units = "weeks"))/52.25, digits=1)) %>%
   filter(complete.cases(.))

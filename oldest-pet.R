@@ -10,8 +10,11 @@ choice <- readline(prompt="Elige entre: \n 1 = El gato más mayor \n 2 = El perr
 choice <- ifelse(choice == 1, 'gatos', 'perros')
 
 ## Call all shelters
-source('anaa.R')
-source('madrilena.R')
+devtools::source_url('https://raw.githubusercontent.com/chucheria/oldest-pet/master/anaa.R')
+devtools::source_url('https://raw.githubusercontent.com/chucheria/oldest-pet/master/madrilena.R')
+#source('anaa.R')
+#source('madrilena.R')
+
 
 pet <- bind_rows(pet_madrilena, pet_anaa)
 

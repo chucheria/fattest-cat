@@ -41,14 +41,7 @@ R
 
 ```{r eval = FALSE}
 url <- "https://raw.githubusercontent.com/chucheria/oldest-pet/master/oldest-pet.R"
-anaa <- "https://raw.githubusercontent.com/chucheria/oldest-pet/master/anaa.R"
-madrilena <- "https://raw.githubusercontent.com/chucheria/oldest-pet/master/madrilena.R"
-rfile <- basename(url)
-afile <- basename(anaa)
-madfile <- basename(madrilena)
-download.file(url, rfile)
-download.file(anaa, afile)
-download.file(madrilena, madfile)
+download.file(basename(url), rfile)
 source(rfile)
 ```
 

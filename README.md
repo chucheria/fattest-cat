@@ -6,7 +6,7 @@ developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repo
 [![minimal R
 version](https://img.shields.io/badge/R%3E%3D-3.3.1-6666ff.svg)](https://cran.r-project.org/)
 [![packageversion](https://img.shields.io/badge/Package%20version-0.2.0-orange.svg?style=flat-square)](commits/master)
-[![Last-changedate](https://img.shields.io/badge/last%20change-2018--07--07-yellowgreen.svg)](/commits/master)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2019--04--22-yellowgreen.svg)](/commits/master)
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
@@ -30,14 +30,7 @@ R
 
 ``` r
 url <- "https://raw.githubusercontent.com/chucheria/oldest-pet/master/oldest-pet.R"
-anaa <- "https://raw.githubusercontent.com/chucheria/oldest-pet/master/anaa.R"
-madrilena <- "https://raw.githubusercontent.com/chucheria/oldest-pet/master/madrilena.R"
-rfile <- basename(url)
-afile <- basename(anaa)
-madfile <- basename(madrilena)
-download.file(url, rfile)
-download.file(anaa, afile)
-download.file(madrilena, madfile)
+download.file(basename(url), rfile)
 source(rfile)
 ```
 
