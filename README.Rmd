@@ -40,7 +40,7 @@ Un script en [#rstats](https://twitter.com/hashtag/rstats), en honor al [script 
 R
 
 ```{r eval = FALSE}
-url <- "https://raw.githubusercontent.com/chucheria/oldest-pet/master/oldest-pet.R"
+url <- "https://raw.githubusercontent.com/chucheria/oldest-pet/master/R/oldest-pet.R"
 rfile <- basename(url)
 download.file(url, rfile)
 source(rfile)
