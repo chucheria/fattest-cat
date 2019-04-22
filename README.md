@@ -30,7 +30,8 @@ R
 
 ``` r
 url <- "https://raw.githubusercontent.com/chucheria/oldest-pet/master/oldest-pet.R"
-download.file(basename(url), rfile)
+rfile <- basename(url)
+download.file(url, rfile)
 source(rfile)
 ```
 
